@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inputs"/>
+    <button id="btn">Send</button>
+    <ul id="messages"></ul>
+    <script src="socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+
+        const inputs = document.getElementById('inputs');
+        const messages = document.querySelector("#messages");
+        document.getElementById('btn').onclick = function(){
+            //fires s custom event to the server using .emit() method.
+            socket.emit("clientMessage", inputs.value);
+            inputs.value  ="";
+            return false;
+        }
+
+        socket.on("serverMessage", (data, id) => {
+            const item = document.createElement('li');
+            item.textContent = `${id} : ${data}`;
+            messages.appendChild(item);
+            window.scrollTo(0, document.body.scrollHeight);
+        });
+    </script>
+</body>
+</html>
