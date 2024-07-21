@@ -16,12 +16,12 @@
         const inputs = document.getElementById('inputs');
         const messages = document.querySelector("#messages");
         document.getElementById('btn').onclick = function(){
-            //fires s custom event to the server using .emit() method.
+            //fires a custom event to the server using .emit() method.
             socket.emit("clientMessage", inputs.value);
             inputs.value  ="";
             return false;
         }
-
+        //Listening to the custom events emitted from server...
         socket.on("serverMessage", (data, id) => {
             const item = document.createElement('li');
             item.textContent = `${id} : ${data}`;

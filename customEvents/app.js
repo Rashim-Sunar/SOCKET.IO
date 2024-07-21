@@ -13,6 +13,7 @@ app.get("/", (req, res)=>{
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
+//runs whenever a new user is connected....
 io.on('connection', (socket)=>{
     console.log("A new user connected ", socket.id);
 
